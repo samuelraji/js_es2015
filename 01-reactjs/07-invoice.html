@@ -14,24 +14,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
 
     <script type="text/babel">
-        function Invoice( props ) {
-            const trs = [];
-            for (let i=0;i<props.items.length;i++) {
-                trs.push(
-                    <tr>
-                        <td>{props.items[i].name}</td>
-                        <td>{props.items[i].price}</td>
-                        <td>{props.items[i].quantity}</td>
-                        <td>{props.items[i].price * props.items[i].quantity}</td>
-                    </tr>
-                );
-            }
+        function Invoice( props ) {  
+            const styleCus = {fontSize:'20px', color:'crimson', margin:10};          
             return (
                 <React.Fragment>
                     <div className="container">
                         <h2>Invoice</h2>
                         <hr />
-                        <div>
+                        <div style={styleCus}>
                             Customer name: {props.customer}
                         </div>
                         <table className="table">
@@ -44,9 +34,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {trs}
+                                {
+                                    props.items.map( item => (
+                                            <tr>
+                                                <td>{item.name}</td>
+                                                <td>{item.price}</td>
+                                                <td>{item.quantity}</td>
+                                                <td>{item.price * item.quantity}</td>
+                                            </tr>
+                                        )
+                                    )
+                                }
                             </tbody>
                         </table>
+                        {  props.discountCode === undefined? null:<div>
+                        you are eligible for dicount <b><i>{props.discountCode}</i></b> as code</div>}
+                      
                     </div>
                 </React.Fragment>
             );

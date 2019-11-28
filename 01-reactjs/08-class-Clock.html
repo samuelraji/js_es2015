@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+
+    <script type="text/babel">
+
+        class Clock extends React.Component {
+            constructor( props ){
+                super( props );
+                this.state = {
+                    date: new Date()
+                };
+            }
+
+            onClickofTimeDiv = () => {
+                alert('clicked');
+                console.log(this);
+            }
+            /* onClickofTimeDiv() {
+                alert('clicked');
+                console.log(this); // not current Clock object
+            } */
+            render() {
+                const time = (new Date()).toTimeString();
+                return(  // .bind(this) referce current context
+                    <div onClick = {this.onClickofTimeDiv}> 
+                        {this.props.message} {this.state.date.toTimeString()} {this.props.timezone} 
+                    </div>
+                );
+            }
+
+            componentDidMount() {
+                // after render() gets called
+                /* setInterval( () => {
+                    this.state.date = new Date();
+                    this.forceUpdate(); // asking React to render
+                }, 1000); */
+                setInterval( () => {
+                    // two many calls it wont make reflect immediatly, it acts like a gate keeper
+                    this.setState(
+                        { date: new Date() },
+                        ( /* state */ ) => { // executed after set state changes in react
+                            // console.log(this.state);
+                        }
+                    );
+                }, 1000);
+            }
+        }
+
+        ReactDOM.render( <Clock message="The local time is" timezone="IST"/>, document.getElementById('root'));
+    </script>
+
+</body>
+</html>

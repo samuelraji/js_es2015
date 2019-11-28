@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+
+    <script type="text/babel">
+
+        class Counter extends React.Component {
+            constructor( props ){
+                super( props );
+                this.state = {
+                    count: 0
+                };
+            }
+
+            increment = () => {
+                this.setState(
+                    { count: ++this.state.count }
+                );
+            }
+
+            dicrement = () => {
+                this.setState(
+                    { count: --this.state.count }
+                );
+            }
+            
+            render() {
+                return( 
+                    <div> 
+                        <button onClick = {this.increment}>INCREASE</button>
+                        <button onClick = {this.dicrement}>DICREASE</button>
+
+                        Count is: {this.state.count}
+                    </div>
+                );
+            }
+
+            componentDidMount() {
+                this.setState(
+                    { count: 5 }
+                );
+            }
+        }
+        ReactDOM.render( <Counter/>, document.getElementById('root'));
+    </script>
+
+</body>
+</html>

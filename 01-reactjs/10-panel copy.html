@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+
+    <style>
+        .panel { border: 1px solid crimson}
+        .panel-heading, .panel-body { padding: 10px;}
+        .panel-heading { background-color: crimson; color: white;}
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+
+    <script type="text/babel">
+
+        function PanelHeading( props ) {
+            return <div className="panel-heading" onClick={props.clickHandler}> What is react</div>;
+        }
+
+        function PanelBody( props ) {
+            return props.show ?  <div className="panel-body">It is UI library</div>: null;
+        }
+        class Panel extends React.Component {
+            constructor( props ){
+                super( props );
+                this.state = {
+                    show: true
+                };
+            }
+
+            togglePanelBody = () => {
+                this.setState(
+                    { show: !this.state.show }
+                );
+            }
+
+            render() {
+                return(
+                    <div className="panel">
+                        <PanelHeading clickHandler={this.togglePanelBody}/>
+                        <PanelBody show={this.state.show}/>
+                    </div>
+                );
+            }
+
+        }
+
+        ReactDOM.render( <Panel/>, document.getElementById('root'));
+    </script>
+
+</body>
+</html>
