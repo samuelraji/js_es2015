@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+
+    <script type="text/babel">
+        function Invoice( props ) {
+            const trs = [];
+            for (let i=0;i<props.items.length;i++) {
+                trs.push(
+                    <tr>
+                        <td>{props.items[i].name}</td>
+                        <td>{props.items[i].price}</td>
+                        <td>{props.items[i].quantity}</td>
+                        <td>{props.items[i].price * props.items[i].quantity}</td>
+                    </tr>
+                );
+            }
+            return (
+                <React.Fragment>
+                    <div className="container">
+                        <h2>Invoice</h2>
+                        <hr />
+                        <div>
+                            Customer name: {props.customer}
+                        </div>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {trs}
+                            </tbody>
+                        </table>
+                    </div>
+                </React.Fragment>
+            );
+        }
+        const props = {
+            customer: 'John',
+            items: [
+                {name:'Biscuts', price: 30, quantity: 5},
+                {name:'Handwash', price: 80, quantity: 2},
+                {name:'Pencil', price: 20, quantity: 15}
+            ],
+            discountCode: 'NEW30'
+        };
+        ReactDOM.render( 
+            <Invoice {...props}/>, 
+        document.getElementById('root'));
+    </script>
+</body>
+</html>
