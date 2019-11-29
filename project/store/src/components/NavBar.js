@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default function NavBar(props) {
@@ -7,10 +8,10 @@ export default function NavBar(props) {
         <nav className="navbar navbar-expand navbar-light bg-light">
             <ul className="nav navbar-nav">
                 <li className="nav-item active">
-                    <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
+                    <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="/products">Products</a>
+                    <Link className="nav-link" to="/products">Products</Link>
                 </li>
             </ul>
         </nav>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.4/redux.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+
+    <script type="text/babel">
+        // action types
+        const INCREMENT = 'INCREMENT';
+        const DECREMENT = 'DECREMENT';
+
+        // "action creators" - functions that return "actions" (i.e object representing actions in the app)
+        function incrementAC() {
+            return {
+                type: INCREMENT
+            };
+        }
+        function decrementAC() {
+            return {
+                type: DECREMENT
+            };
+        }
+        function counterReducer(curState, action) {
+            let newState;
+
+            switch( action.type ) {
+                case INCREMENT:
+                    newState = { ...curState, count: curState.count +1 }
+                    break;
+                case DECREMENT:
+                    newState = { ...curState, count: curState.count - 1}   
+                    break;
+                default: 
+                    newState = curState;
+            }
+            return newState;
+        }
+        
+        const store = Redux.createStore( counterReducer, { count: 0 } );
+        const state = {
+            count: 0
+        };
+
+        class Counter extends React.Component {
+            constructor( props ){
+                super( props );
+            }
+
+            increment = () => {
+                store.dispatch( incrementAC() );
+            }
+
+            dicrement = () => {
+                store.dispatch( decrementAC() );
+            }
+            
+            render() {
+                return( 
+                    <div> 
+                        <button onClick = {this.increment}>INCREASE</button>
+                        <button onClick = {this.dicrement}>DICREASE</button>
+
+                        Count is: {store.getState().count}
+                    </div>
+                );
+            }
+
+            componentDidMount() {
+                store.subscribe( this.forceUpdate.bind(this) );
+            }
+        }
+        ReactDOM.render( <Counter/>, document.getElementById('root'));
+    </script>
+
+</body>
+</html>

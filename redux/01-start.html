@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Document</title>
+</head>
+<body>
+    Counter: <span id="counter"></span>
+    <button id="increment" onclick="increment()"> + </button>
+    <button id="decrement" onclick="decrement()"> - </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.4/redux.js"></script>
+
+    <script>
+        // action types
+        const INCREMENT = 'INCREMENT';
+        const DECREMENT = 'DECREMENT';
+
+        // "action creators" - functions that return "actions" (i.e object representing actions in the app)
+        function incrementAC() {
+            return {
+                type: INCREMENT
+            };
+        }
+        function decrementAC() {
+            return {
+                type: DECREMENT
+            };
+        }
+        function counterReducer(curState, action) {
+            let newState;
+
+            switch( action.type ) {
+                case INCREMENT:
+                    newState = {value: curState.value +1 }
+                    break;
+                case DECREMENT:
+                    newState = {value: curState.value - 1}   
+                    break;
+                default: 
+                    newState = curState;
+            }
+            return newState;
+        }
+        
+        const store = Redux.createStore( counterReducer, { value: 0 } );
+        const state = {
+            value: 0
+        };
+        
+        function increment() {
+            store.dispatch( incrementAC() );
+        }
+        function decrement() {
+            store.dispatch( decrementAC() );
+        }
+        store.subscribe( render );
+        function render() {
+            document.getElementById('counter').innerHTML = store.getState().value;
+        }
+    </script>
+
+</body>
+</html>

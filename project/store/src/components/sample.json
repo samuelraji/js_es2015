@@ -1,0 +1,10 @@
+{
+    code: "GDN-0011"
+    description: "Leaf rake with 48-inch wooden handle."
+    id: 1
+    imageUrl: "https://corporate-trainings.s3.amazonaws.com/images/leaf-rake.png"
+    name: "Lawn Mower"
+    price: 19.95
+    releaseDate: "Mar 19, 2016"
+    starRating: 3.2
+}
