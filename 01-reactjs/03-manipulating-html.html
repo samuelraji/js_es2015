@@ -19,6 +19,18 @@
             const el2 = <div id="message"> Hello React </div>;
             ReactDOM.render( el2, document.getElementById('root'));
         }, 2000);
+
+        const obj = {
+            x:1,
+            foo: function() {
+                const bar = () => console.log(this);
+                bar();
+                
+            }
+           
+
+        }
+        obj.foo();
     </script>
 </body>
 </html>
