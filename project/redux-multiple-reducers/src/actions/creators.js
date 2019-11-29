@@ -1,5 +1,5 @@
 
-import {INCREMENT, DECREMENT} from './constants';
+import {INCREMENT, DECREMENT, UPDATE_NAME} from './constants';
  // "action creators" - functions that return "actions" (i.e object representing actions in the app)
 function incrementAC() {
     return {
@@ -11,9 +11,18 @@ function decrementAC() {
         type: DECREMENT
     };
 }
+function updateNameAC(name) {
+    return {
+        type: UPDATE_NAME,
+        payload: {
+            name: name
+        }
+    };
+}
 
 
 export {
     incrementAC,
-    decrementAC
+    decrementAC,
+    updateNameAC
 };
